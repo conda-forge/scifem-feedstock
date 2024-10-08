@@ -1,0 +1,10 @@
+# just enough to get it to render first time
+c_stdlib:
+  - if: linux
+    then: sysroot
+  - if: osx
+    then: macosx_deployment_target
+python:
+  - 3.10
+  # - 3.11
+  # - 3.12
