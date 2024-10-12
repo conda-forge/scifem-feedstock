@@ -52,6 +52,7 @@ requirements:
     - python
     - fenics-basix
     - fenics-dolfinx
+    - packaging
     - adios2 * mpi_${{ mpi }}_*
   run_constraints:
     # require mpi build of h5py
