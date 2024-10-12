@@ -1,6 +1,6 @@
 context:
   name: scifem
-  version: 0.2.5
+  version: 0.2.7
   fenics_version: "0.9"
   # move to conda_build_config after merge,
   # staged-recipes can't handle variables from variants
@@ -19,7 +19,7 @@ source:
     - 42.patch
 
 build:
-  number: 1
+  number: 0
   skip:
     - win
     - match(python, "<3.10")
