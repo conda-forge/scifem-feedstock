@@ -10,6 +10,9 @@ package:
 source:
   url: https://pypi.io/packages/source/s/scifem/scifem-${{ version }}.tar.gz
   sha256: b505aacf300df8adb30d5d6fad6c0d12b1f0b7859db64450249c9cabbc6419fc
+  patches:
+    # https://github.com/scientificcomputing/scifem/pull/54
+    - 54.patch
 
 build:
   number: 1
