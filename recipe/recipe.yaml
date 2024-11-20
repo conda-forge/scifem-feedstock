@@ -10,6 +10,8 @@ package:
 source:
   url: https://pypi.org/packages/source/s/scifem/scifem-${{ version }}.tar.gz
   sha256: d05ba474729cd6122c2fde6284d3ff5e237cbe9b3006f62b2b717225a63852a9
+  patches:
+    - pr72.patch
 
 build:
   number: 0
@@ -62,6 +64,7 @@ tests:
   - files:
       source:
         - tests/
+        - pyproject.toml
     requirements:
       run:
         - pytest
@@ -70,8 +73,6 @@ tests:
         # until it gets builds for hdf5 1.14.4
         # - h5py
     script:
-      - pwd
-      - ls -la
       - export PYTEST_ADDOPTS="-k 'not h5py'"
       - pytest -vs tests
       - if: "mpi != 'openmpi'"
