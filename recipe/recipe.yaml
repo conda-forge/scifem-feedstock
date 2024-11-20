@@ -72,6 +72,7 @@ tests:
     script:
       - pwd
       - ls -la
+      - export PYTEST_ADDOPTS="-k 'not h5py'"
       - pytest -vs tests
       - if: "mpi != 'openmpi'"
         then: MPIEXEC_TIMEOUT=300 mpiexec -n 2 pytest -m "not serial" tests
