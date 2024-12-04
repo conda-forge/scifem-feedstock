@@ -1,6 +1,6 @@
 context:
   name: scifem
-  version: 0.2.13
+  version: 0.2.14
   fenics_version: "0.9"
 
 package:
@@ -9,9 +9,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/scifem/scifem-${{ version }}.tar.gz
-  sha256: d05ba474729cd6122c2fde6284d3ff5e237cbe9b3006f62b2b717225a63852a9
-  patches:
-    - pr72.patch
+  sha256: 2c6a3f2cda954cc8db8b1bc625134aa3c2666fc3ad287dd526536a9e74a8ff48
 
 build:
   number: 0
@@ -73,12 +71,8 @@ tests:
         # until it gets builds for hdf5 1.14.4
         # - h5py
     script:
-      - export PYTEST_ADDOPTS="-k 'not h5py'"
       - pytest -vs tests
-      - if: "mpi != 'openmpi'"
-        then: MPIEXEC_TIMEOUT=300 mpiexec -n 2 pytest -m "not serial" tests
-      - if: "mpi == 'openmpi'"
-        then: mpiexec --timeout=300 -n 2 pytest -m "not serial" tests
+      - MPIEXEC_TIMEOUT=300 mpiexec -n 2 pytest -m "not serial" tests
 
 about:
   summary: Scientific Computing Tools for Finite Element Methods
