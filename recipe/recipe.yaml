@@ -1,7 +1,7 @@
 context:
   name: scifem
   version: "0.3.0"
-  fenics_version: "0.9"
+  fenics_version: "0.9.*"
 
 package:
   name: ${{ name|lower }}
