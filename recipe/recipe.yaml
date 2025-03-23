@@ -1,6 +1,6 @@
 context:
   name: scifem
-  version: "0.3.1"
+  version: "0.5.0"
   fenics_version: "0.9.*"
 
 package:
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/scifem/scifem-${{ version }}.tar.gz
-  sha256: 38d59ff37b588f34292c5b215ac6deb43d60d710416f3e6a4c2684d41c75f142
+  sha256: 0b54bb895790beb00d87f04084ff5ed300e2806f0799bf6423c3cb5c583d5ed7
 
 build:
   number: 0
@@ -37,6 +37,14 @@ requirements:
     - fenics-basix ${{ fenics_version }}
     - fenics-libdolfinx ${{ fenics_version }}
     - fenics-dolfinx ${{ fenics_version }}
+
+    # place adios2 in host environment to ensure
+    # a compatible set of dependencies is pinned
+    # (usually on hdf5)
+    # run_exports are then ignored because we don't actually need
+    # to pin adios2
+    - adios2 * mpi_${{ mpi }}_*
+
     - ${{ mpi }}
     - petsc
     - petsc * ${{ scalar }}_*
@@ -53,6 +61,10 @@ requirements:
   run_constraints:
     # require mpi build of h5py
     - h5py * mpi_${{ mpi }}_*
+  ignore_run_exports:
+    # lose build-time pinning since we don't link libadios
+    from_package:
+      - adios2
 
 tests:
   - python:
