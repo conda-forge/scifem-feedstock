@@ -104,7 +104,7 @@ jobs:
       osx_arm64_mpiopenmpipython3.13.____cp313scalarreal:
         CONFIG: osx_arm64_mpiopenmpipython3.13.____cp313scalarreal
         UPLOAD_PACKAGES: 'True'
-    maxParallel: 20
+    maxParallel: 25
   timeoutInMinutes: 40
   variables: {}
 
