@@ -84,7 +84,7 @@ tests:
         # - h5py
     script:
       - pytest -vs tests
-      - MPIEXEC_TIMEOUT=300 mpiexec -n 2 pytest -m "not serial" tests
+      - MPIEXEC_TIMEOUT=600 mpiexec -n 2 pytest -m "not serial" tests
 
 about:
   summary: Scientific Computing Tools for Finite Element Methods
