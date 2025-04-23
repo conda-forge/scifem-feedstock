@@ -12,7 +12,7 @@ source:
   sha256: 0b54bb895790beb00d87f04084ff5ed300e2806f0799bf6423c3cb5c583d5ed7
 
 build:
-  number: 0
+  number: 1
   skip:
     - win
     - match(python, "<3.10")
@@ -25,10 +25,10 @@ requirements:
     - cmake
     - make
     - pkg-config
-    - if: mpi == 'openmpi' and build_platform != target_platform
-      then: ${{ mpi }}
     - if: build_platform != target_platform
       then:
+        - if: mpi == 'openmpi'
+          then: ${{ mpi }}
         - cross-python_${{ target_platform }}
         - python
         - nanobind
@@ -84,7 +84,7 @@ tests:
         # - h5py
     script:
       - pytest -vs tests
-      - MPIEXEC_TIMEOUT=300 mpiexec -n 2 pytest -m "not serial" tests
+      - MPIEXEC_TIMEOUT=600 mpiexec -n 2 pytest -m "not serial" tests
 
 about:
   summary: Scientific Computing Tools for Finite Element Methods
