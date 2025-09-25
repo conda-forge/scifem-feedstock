@@ -10,6 +10,8 @@ package:
 source:
   url: https://pypi.org/packages/source/s/scifem/scifem-${{ version }}.tar.gz
   sha256: cd83ff9156b61abb94c5fc372f07c55573e4b6f2a8a4a301b006d6a8437df571
+  patches:
+    - scifem-test-speed.patch
 
 build:
   number: 0
