@@ -83,7 +83,7 @@ tests:
         # until it gets builds for hdf5 1.14.4
         # - h5py
     script:
-      - pytest -vs tests
+      - pytest -vs tests/*.py
       - MPIEXEC_TIMEOUT=600 mpiexec -n 2 pytest -m "not serial" tests
 
 about:
