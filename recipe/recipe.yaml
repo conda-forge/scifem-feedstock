@@ -10,8 +10,6 @@ package:
 source:
   url: https://pypi.org/packages/source/s/scifem/scifem-${{ version }}.tar.gz
   sha256: 18a6ad980113411312714ae654b0e7c6e9a9316056c4e8c6922b5fd0472d907f
-  patches:
-    - scifem-test-speed.patch
 
 build:
   number: 0
@@ -81,7 +79,7 @@ tests:
       run:
         - pytest
         - petsc4py
-        # can't test h5py 
+        # can't test h5py
         # until it gets builds for hdf5 1.14.4
         # - h5py
     script:
