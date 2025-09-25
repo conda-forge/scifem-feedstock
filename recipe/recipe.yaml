@@ -83,8 +83,12 @@ tests:
         # until it gets builds for hdf5 1.14.4
         # - h5py
     script:
-      - pytest -vs tests/*.py
-      - MPIEXEC_TIMEOUT=600 mpiexec -n 2 pytest -m "not serial" tests
+      content:
+        - pytest -vs tests/*.py
+        - mpiexec -n 2 pytest -m "not serial" tests
+      env:
+        UCX_MEM_EVENTS: "no"
+        MPIEXEC_TIMEOUT: "600"
 
 about:
   summary: Scientific Computing Tools for Finite Element Methods
