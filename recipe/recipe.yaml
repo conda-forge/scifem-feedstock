@@ -1,6 +1,6 @@
 context:
   name: scifem
-  version: "0.11.0"
+  version: "0.11.1"
   fenics_version: "0.9.*"
 
 package:
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/scifem/scifem-${{ version }}.tar.gz
-  sha256: 18a6ad980113411312714ae654b0e7c6e9a9316056c4e8c6922b5fd0472d907f
+  sha256: 9790386434e0914997c3e85da0af7f31e64e58cfc71cd61454c035684ceffd14
 
 build:
   number: 0
