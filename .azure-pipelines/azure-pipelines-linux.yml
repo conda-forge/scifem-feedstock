@@ -137,7 +137,7 @@ jobs:
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
     maxParallel: 25
-  timeoutInMinutes: 40
+  timeoutInMinutes: 60
   variables: {}
 
   steps:
