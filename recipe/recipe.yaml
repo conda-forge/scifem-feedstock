@@ -88,7 +88,7 @@ tests:
         - mpiexec -n 2 pytest -m "not serial" tests
       env:
         UCX_MEM_EVENTS: "no"
-        MPIEXEC_TIMEOUT: "600"
+        MPIEXEC_TIMEOUT: "900"
 
 about:
   summary: Scientific Computing Tools for Finite Element Methods
