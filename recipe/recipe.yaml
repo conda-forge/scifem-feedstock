@@ -1,7 +1,7 @@
 context:
   name: scifem
   version: "0.13.1"
-  fenics_version: "0.9.*"
+  fenics_version: "0.10.*"
 
 package:
   name: ${{ name|lower }}
@@ -32,6 +32,7 @@ requirements:
         - cross-python_${{ target_platform }}
         - python
         - nanobind
+        - nanobind-abi
   host:
     - fenics-libbasix ${{ fenics_version }}
     - fenics-basix ${{ fenics_version }}
@@ -52,6 +53,7 @@ requirements:
     - python
     - scikit-build-core
     - nanobind
+    - nanobind-abi
   run:
     - python
     - fenics-basix
