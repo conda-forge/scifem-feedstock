@@ -2,6 +2,7 @@ context:
   name: scifem
   version: "0.13.1"
   fenics_version: "0.10.*"
+  abi_version: 2.${{ nanobind_abi }}
 
 package:
   name: ${{ name|lower }}
@@ -33,11 +34,13 @@ requirements:
         - python
         - nanobind
         - nanobind-abi
+    - fenics-basix-nanobind-abi ${{ abi_version }}.*
   host:
     - fenics-libbasix ${{ fenics_version }}
     - fenics-basix ${{ fenics_version }}
     - fenics-libdolfinx ${{ fenics_version }}
     - fenics-dolfinx ${{ fenics_version }}
+    - fenics-basix-nanobind-abi ${{ abi_version }}.*
 
     # place adios2 in host environment to ensure
     # a compatible set of dependencies is pinned
