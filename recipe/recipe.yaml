@@ -3,6 +3,11 @@ context:
   version: "0.13.1"
   fenics_version: "0.10.*"
   abi_version: 2.${{ nanobind_abi }}
+  abi3_python: "3.12"
+  skip_abi3_python: ">=3.13"
+  build_abi3: ${{ match(python, abi3_python + ".*") and is_abi3 }}
+  skip_build: ${{ match(python, skip_abi3_python) and is_abi3 }}
+  abi3_tag: ${{ "cp312" if build_abi3 else "" }}
 
 package:
   name: ${{ name|lower }}
@@ -17,6 +22,14 @@ build:
   skip:
     - win
     - match(python, "<3.10")
+    - skip_build
+  script:
+    file: build.sh
+    env:
+      SKBUILD_BUILD_VERBOSE: "true"
+      SKBUILD_WHEEL_PY_API: ${{ abi3_tag }}
+  python:
+    version_independent: ${{ build_abi3 }}
 
 requirements:
   build:
@@ -54,6 +67,9 @@ requirements:
     - petsc * ${{ scalar }}_*
     - pip
     - python
+    - if: build_abi3
+      then:
+        - python-abi3
     - scikit-build-core
     - nanobind
     - nanobind-abi
