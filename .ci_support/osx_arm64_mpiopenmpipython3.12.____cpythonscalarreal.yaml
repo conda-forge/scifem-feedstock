@@ -18,12 +18,18 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '19'
+is_abi3:
+- true
 macos_machine:
 - arm64-apple-darwin20.0.0
 mpi:
 - openmpi
 mpich:
 - '4'
+nanobind:
+- '2.9'
+nanobind_abi:
+- '16'
 openmpi:
 - '5'
 petsc:
