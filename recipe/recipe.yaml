@@ -14,9 +14,12 @@ package:
   version: ${{ version }}
 
 source:
+  # path: /Users/finsberg/local/src/scifem
   url: https://pypi.org/packages/source/s/scifem/scifem-${{ version }}.tar.gz
   sha256: 5be12f3e8fcacb8f0d746bace7dc866a59e26b4617deb6d64b83dd8d93a834a1
-
+  patches:
+    - 0001-Fix-nanobind-ABI.patch
+    
 build:
   number: 1
   skip:
