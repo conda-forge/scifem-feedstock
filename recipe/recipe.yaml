@@ -1,7 +1,12 @@
 context:
   name: scifem
   version: "0.13.1"
-  fenics_version: "0.9.*"
+  fenics_version: "0.10.*"
+  abi_version: 2.${{ nanobind_abi }}
+  abi3_python: "3.12"
+  build_abi3: ${{ match(python, abi3_python + ".*") and is_abi3 }}
+  skip_build: ${{ match(python, ">=3.13") and is_abi3 }}
+  abi3_tag: ${{ "cp312" if build_abi3 else "" }}
 
 package:
   name: ${{ name|lower }}
@@ -10,12 +15,22 @@ package:
 source:
   url: https://pypi.org/packages/source/s/scifem/scifem-${{ version }}.tar.gz
   sha256: 5be12f3e8fcacb8f0d746bace7dc866a59e26b4617deb6d64b83dd8d93a834a1
+  patches:
+    - 0001-Fix-nanobind-ABI.patch
 
 build:
-  number: 0
+  number: 1
   skip:
     - win
     - match(python, "<3.10")
+    - skip_build
+  script:
+    file: build.sh
+    env:
+      SKBUILD_BUILD_VERBOSE: "true"
+      SKBUILD_WHEEL_PY_API: ${{ abi3_tag }}
+  python:
+    version_independent: ${{ build_abi3 }}
 
 requirements:
   build:
@@ -32,11 +47,14 @@ requirements:
         - cross-python_${{ target_platform }}
         - python
         - nanobind
+        - nanobind-abi
+    - fenics-basix-nanobind-abi ${{ abi_version }}.*
   host:
     - fenics-libbasix ${{ fenics_version }}
     - fenics-basix ${{ fenics_version }}
     - fenics-libdolfinx ${{ fenics_version }}
     - fenics-dolfinx ${{ fenics_version }}
+    - fenics-basix-nanobind-abi ${{ abi_version }}.*
 
     # place adios2 in host environment to ensure
     # a compatible set of dependencies is pinned
@@ -50,8 +68,12 @@ requirements:
     - petsc * ${{ scalar }}_*
     - pip
     - python
+    - if: build_abi3
+      then:
+        - python-abi3
     - scikit-build-core
     - nanobind
+    - nanobind-abi
   run:
     - python
     - fenics-basix
