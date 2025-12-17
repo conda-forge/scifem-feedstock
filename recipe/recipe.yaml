@@ -104,11 +104,12 @@ tests:
         # - h5py
     script:
       content:
-        - pytest -vs tests/test_bcs.py tests/test_assembly.py tests/test_eval.py tests/test_interpolation.py tests/test_material_space.py tests/test_mesh.py tests/test_point_source.py tests/test_real_functionspace.py tests/test_vertex_to_dofmap.py tests/test_xdmf.py
-        - mpiexec -n 2 pytest -m "not serial" -vs tests/test_bcs.py tests/test_assembly.py tests/test_eval.py tests/test_interpolation.py tests/test_material_space.py tests/test_mesh.py tests/test_point_source.py tests/test_real_functionspace.py tests/test_vertex_to_dofmap.py tests/test_xdmf.py
+        - pytest -vs ${TEST_FILES}
+        - mpiexec -n 2 pytest -m "not serial" -vs ${TEST_FILES}
       env:
         UCX_MEM_EVENTS: "no"
         MPIEXEC_TIMEOUT: "1000"
+        TEST_FILES: "tests/test_bcs.py tests/test_assembly.py tests/test_eval.py tests/test_interpolation.py tests/test_material_space.py tests/test_mesh.py tests/test_point_source.py tests/test_real_functionspace.py tests/test_vertex_to_dofmap.py"
 
 about:
   summary: Scientific Computing Tools for Finite Element Methods
