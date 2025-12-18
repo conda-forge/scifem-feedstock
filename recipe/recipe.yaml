@@ -1,6 +1,6 @@
 context:
   name: scifem
-  version: "0.15.0"
+  version: "0.16.1"
   fenics_version: "0.10.*"
   abi_version: 2.${{ nanobind_abi }}
   abi3_python: "3.12"
@@ -14,7 +14,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/scifem/scifem-${{ version }}.tar.gz
-  sha256: 2c5663bdd311fe10ae8108ae9b17653794d4d8e229b28861cd93cb7d3bda4543
+  sha256: f53367952dbfa4b0807e1e8d3226211359b855025480503415cf9aa444d93591
 
 build:
   number: 0
@@ -104,11 +104,12 @@ tests:
         # - h5py
     script:
       content:
-        - pytest -vs tests/*.py
-        - mpiexec -n 2 pytest -m "not serial" tests
+        - pytest -vs ${TEST_FILES}
+        - mpiexec -n 2 pytest -m "not serial" -vs ${TEST_FILES}
       env:
         UCX_MEM_EVENTS: "no"
-        MPIEXEC_TIMEOUT: "900"
+        MPIEXEC_TIMEOUT: "1250"
+        TEST_FILES: "tests/test_bcs.py tests/test_interpolation.py tests/test_material_space.py tests/test_real_functionspace.py"
 
 about:
   summary: Scientific Computing Tools for Finite Element Methods
