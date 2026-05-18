@@ -78,6 +78,7 @@ requirements:
     - fenics-dolfinx
     - packaging
     - adios2 * mpi_${{ mpi }}_*
+    - scipy
   run_constraints:
     # require mpi build of h5py
     - h5py * mpi_${{ mpi }}_*
