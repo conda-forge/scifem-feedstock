@@ -15,8 +15,7 @@ package:
 source:
   url: https://pypi.org/packages/source/s/scifem/scifem-${{ version }}.tar.gz
   sha256: 1f35e19e8d4a52990b844ef5e975227caf8a506b6db327243d6820317026adaa
-  patches:
-    - 0001-jthread.patch
+
 build:
   number: 0
   skip:
