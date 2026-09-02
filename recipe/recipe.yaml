@@ -114,9 +114,8 @@ tests:
       content:
         - pytest -vs ${TEST_FILES}
         - mpiexec -n 2 pytest -m "not serial" -vs ${TEST_FILES}
-        - if: unix
-          then: abi3audit $SP_DIR/scifem.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
-          else: abi3audit %SP_DIR%/scifem.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
+        - if: build_abi3
+          then: abi3audit $SP_DIR/scifem/_scifem.abi3.so -s -v --assume-minimum-abi3 ${{ abi3_python }}
 
       env:
         UCX_MEM_EVENTS: "no"
