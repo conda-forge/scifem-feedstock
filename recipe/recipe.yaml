@@ -7,6 +7,7 @@ context:
   build_abi3: ${{ match(python, abi3_python + ".*") and is_abi3 }}
   skip_build: ${{ match(python, ">=3.13") and is_abi3 }}
   abi3_tag: ${{ "cp312" if build_abi3 else "" }}
+  python_min: "3.11"
 
 package:
   name: ${{ name|lower }}
