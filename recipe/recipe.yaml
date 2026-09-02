@@ -1,6 +1,6 @@
 context:
   name: scifem
-  version: "0.22.0"
+  version: "0.22.1"
   fenics_version: "0.11.*"
   abi_version: 2.${{ nanobind_abi }}
   abi3_python: "3.12"
@@ -14,7 +14,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/scifem/scifem-${{ version }}.tar.gz
-  sha256: eac546f4d6d2b2e1661f717dd0d496a93b6cc314c9bf9265d8b39c837e936c01
+  sha256: ace946426c137f394094939dadecd545fe22eb2f6cb3ed609369265e91604730
 
 build:
   number: 0
@@ -79,6 +79,8 @@ requirements:
     - packaging
     - adios2 * mpi_${{ mpi }}_*
     - scipy
+    - if: match(python, "<3.13")
+      then: typing_extensions
   run_constraints:
     # require mpi build of h5py
     - h5py * mpi_${{ mpi }}_*
