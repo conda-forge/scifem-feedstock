@@ -1,6 +1,6 @@
 context:
   name: scifem
-  version: "0.21.0"
+  version: "0.22.1"
   fenics_version: "0.11.*"
   abi_version: 2.${{ nanobind_abi }}
   abi3_python: "3.12"
@@ -14,7 +14,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/scifem/scifem-${{ version }}.tar.gz
-  sha256: ccccd6f76865d9b6e71a4eb2f4c3961be6ee78d3cd8b4092e2e11bd6649abb37
+  sha256: ace946426c137f394094939dadecd545fe22eb2f6cb3ed609369265e91604730
 
 build:
   number: 0
@@ -79,6 +79,8 @@ requirements:
     - packaging
     - adios2 * mpi_${{ mpi }}_*
     - scipy
+    - if: match(python, "<3.13")
+      then: typing_extensions
   run_constraints:
     # require mpi build of h5py
     - h5py * mpi_${{ mpi }}_*
@@ -89,6 +91,10 @@ requirements:
 
 tests:
   - python:
+      python_version:
+        - if: build_abi3
+          then: ${{ abi3_python }}.*
+        - "*"
       imports:
         - scifem
       pip_check: true
@@ -100,6 +106,7 @@ tests:
       run:
         - pytest
         - petsc4py
+        - abi3audit
         # can't test h5py
         # until it gets builds for hdf5 1.14.4
         # - h5py
@@ -107,6 +114,9 @@ tests:
       content:
         - pytest -vs ${TEST_FILES}
         - mpiexec -n 2 pytest -m "not serial" -vs ${TEST_FILES}
+        - if: build_abi3
+          then: abi3audit $SP_DIR/scifem/_scifem.abi3.so -s -v --assume-minimum-abi3 ${{ abi3_python }}
+
       env:
         UCX_MEM_EVENTS: "no"
         MPIEXEC_TIMEOUT: "1250"
