@@ -1,7 +1,5 @@
 azure:
   timeout_minutes: 60
-build_platform:
-  osx_arm64: osx_64
 conda_build:
   error_overlinking: true
 conda_build_tool: rattler-build
@@ -11,4 +9,5 @@ github:
   tooling_branch_name: main
 provider:
   linux_aarch64: default
+  osx_arm64: default
 test: native_and_emulated

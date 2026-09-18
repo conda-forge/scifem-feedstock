@@ -91,7 +91,7 @@ jobs:
       osx_arm64_mpimpichpython3.11.____cpythonscalarcomplex:
         CONFIG: osx_arm64_mpimpichpython3.11.____cpythonscalarcomplex
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
+        VMIMAGE: macOS-15-arm64
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
@@ -101,7 +101,7 @@ jobs:
       osx_arm64_mpimpichpython3.11.____cpythonscalarreal:
         CONFIG: osx_arm64_mpimpichpython3.11.____cpythonscalarreal
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
+        VMIMAGE: macOS-15-arm64
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
@@ -111,7 +111,7 @@ jobs:
       osx_arm64_mpimpichpython3.12.____cpythonscalarcomplex:
         CONFIG: osx_arm64_mpimpichpython3.12.____cpythonscalarcomplex
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
+        VMIMAGE: macOS-15-arm64
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
@@ -121,7 +121,7 @@ jobs:
       osx_arm64_mpimpichpython3.12.____cpythonscalarreal:
         CONFIG: osx_arm64_mpimpichpython3.12.____cpythonscalarreal
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
+        VMIMAGE: macOS-15-arm64
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
@@ -131,7 +131,7 @@ jobs:
       osx_arm64_mpiopenmpipython3.11.____cpythonscalarcomplex:
         CONFIG: osx_arm64_mpiopenmpipython3.11.____cpythonscalarcomplex
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
+        VMIMAGE: macOS-15-arm64
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
@@ -141,7 +141,7 @@ jobs:
       osx_arm64_mpiopenmpipython3.11.____cpythonscalarreal:
         CONFIG: osx_arm64_mpiopenmpipython3.11.____cpythonscalarreal
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
+        VMIMAGE: macOS-15-arm64
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
@@ -151,7 +151,7 @@ jobs:
       osx_arm64_mpiopenmpipython3.12.____cpythonscalarcomplex:
         CONFIG: osx_arm64_mpiopenmpipython3.12.____cpythonscalarcomplex
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
+        VMIMAGE: macOS-15-arm64
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
@@ -161,7 +161,7 @@ jobs:
       osx_arm64_mpiopenmpipython3.12.____cpythonscalarreal:
         CONFIG: osx_arm64_mpiopenmpipython3.12.____cpythonscalarreal
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
+        VMIMAGE: macOS-15-arm64
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
