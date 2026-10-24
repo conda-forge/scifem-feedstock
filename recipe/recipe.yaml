@@ -1,6 +1,6 @@
 context:
   name: scifem
-  version: "0.26.0"
+  version: "0.27.0"
   fenics_version: "0.11.*"
   abi_version: 2.${{ nanobind_abi }}
   abi3_python: "3.12"
@@ -14,13 +14,13 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/scifem/scifem-${{ version }}.tar.gz
-  sha256: d9c3ddfca9e1ddbf19c0229c113f0e5ed58eccba4140f8d00881993b056b0d45
+  sha256: 0d839fb0f84ae72237c8037c89e6f6a96243025bcaa529a63d03b8cdd9fc489b
 
 build:
   number: 0
   skip:
     - win
-    - match(python, "<3.11")
+    - match(python, "<3.12")
     - skip_build
   script:
     file: build.sh
@@ -76,7 +76,7 @@ requirements:
     - python
     - fenics-basix
     - fenics-dolfinx
-    - packaging
+    - fenicsx-compat >=0.3.0
     - adios2 * mpi_${{ mpi }}_*
     - scipy
     - if: match(python, "<3.13")
