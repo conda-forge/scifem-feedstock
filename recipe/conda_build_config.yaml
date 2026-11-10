@@ -3,7 +3,8 @@ nanobind_abi:
   - 19
 nanobind:
   - "2.12"
-
+petsc:
+- '3.25'  # [not win]
 mpi:
   - mpich  # [not win]
   - openmpi  # [not win]
