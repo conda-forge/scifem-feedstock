@@ -17,13 +17,12 @@ source:
   sha256: 0d839fb0f84ae72237c8037c89e6f6a96243025bcaa529a63d03b8cdd9fc489b
 
 build:
-  number: 0
+  number: 1
   skip:
-    - win
     - match(python, "<3.12")
     - skip_build
   script:
-    file: build.sh
+    file: ${{ "build.bat" if win else "build.sh" }}
     env:
       SKBUILD_BUILD_VERBOSE: "true"
       SKBUILD_WHEEL_PY_API: ${{ abi3_tag }}
@@ -36,7 +35,9 @@ requirements:
     - ${{ stdlib('c') }}
     - ${{ compiler('cxx') }}
     - cmake
-    - make
+    - if: win
+      then: ninja
+      else: make
     - pkg-config
     - if: build_platform != target_platform
       then:
@@ -59,11 +60,14 @@ requirements:
     # (usually on hdf5)
     # run_exports are then ignored because we don't actually need
     # to pin adios2
-    - adios2 * mpi_${{ mpi }}_*
+    - if: not win
+      then: adios2 * mpi_${{ mpi }}_*
 
-    - ${{ mpi }}
-    - petsc
-    - petsc * ${{ scalar }}_*
+    - ${{ mpi | replace("impi", "impi-devel") }}
+    - if: not win
+      then:
+        - petsc
+        - petsc * ${{ scalar }}_*
     - pip
     - python
     - if: build_abi3
@@ -77,13 +81,15 @@ requirements:
     - fenics-basix
     - fenics-dolfinx
     - fenicsx-compat >=0.3.0
-    - adios2 * mpi_${{ mpi }}_*
+    - if: not win
+      then: adios2 * mpi_${{ mpi }}_*
     - scipy
     - if: match(python, "<3.13")
       then: typing_extensions
   run_constraints:
     # require mpi build of h5py
-    - h5py * mpi_${{ mpi }}_*
+    - if: not win
+      then: h5py * mpi_${{ mpi }}_*
   ignore_run_exports:
     # lose build-time pinning since we don't link libadios
     from_package:
@@ -105,22 +111,32 @@ tests:
     requirements:
       run:
         - pytest
-        - petsc4py
+        - if: not win
+          then: petsc4py
         - abi3audit
         # can't test h5py
         # until it gets builds for hdf5 1.14.4
         # - h5py
     script:
       content:
-        - pytest -vs ${TEST_FILES}
-        - mpiexec -n 2 pytest -m "not serial" -vs ${TEST_FILES}
+        - if: win
+          then:
+            - pytest -vs %TEST_FILES%
+            - mpiexec -n 2 pytest -m "not serial" -vs %TEST_FILES%
+          else:
+            - pytest -vs ${TEST_FILES}
+            - mpiexec -n 2 pytest -m "not serial" -vs ${TEST_FILES}
         - if: build_abi3
-          then: abi3audit $SP_DIR/scifem/_scifem.abi3.so -s -v --assume-minimum-abi3 ${{ abi3_python }}
+          then:
+            - if: win
+              then: abi3audit "%SP_DIR%/scifem/_scifem.pyd" -s -v --assume-minimum-abi3 ${{ abi3_python }}
+              else: abi3audit $SP_DIR/scifem/_scifem.abi3.so -s -v --assume-minimum-abi3 ${{ abi3_python }}
 
       env:
         UCX_MEM_EVENTS: "no"
         MPIEXEC_TIMEOUT: "1250"
-        TEST_FILES: "tests/test_bcs.py tests/test_interpolation.py tests/test_material_space.py tests/test_real_functionspace.py"
+        # test_real_functionspace imports PETSc, which is unavailable on Windows.
+        TEST_FILES: tests/test_bcs.py tests/test_interpolation.py tests/test_material_space.py ${{ "" if win else "tests/test_real_functionspace.py" }}
 
 about:
   summary: Scientific Computing Tools for Finite Element Methods
