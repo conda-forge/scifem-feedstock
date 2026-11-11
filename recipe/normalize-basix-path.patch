@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -26,6 +26,9 @@ execute_process(
+   ERROR_VARIABLE BASIX_ERROR_OUT
+   OUTPUT_STRIP_TRAILING_WHITESPACE
+ )
++# DOLFINXConfig.cmake reuses this hint in find_dependency(), whose macro
++# arguments can interpret Windows backslashes as escape sequences.
++file(TO_CMAKE_PATH "${BASIX_PY_DIR}" BASIX_PY_DIR)
+ find_package(Basix REQUIRED CONFIG HINTS ${BASIX_PY_DIR})
+ 
+ if(Basix_FOUND)
