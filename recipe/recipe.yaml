@@ -1,6 +1,6 @@
 context:
   name: scifem
-  version: "0.27.0"
+  version: "0.27.1"
   fenics_version: "0.11.*"
   abi_version: 2.${{ nanobind_abi }}
   abi3_python: "3.12"
@@ -14,12 +14,12 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/scifem/scifem-${{ version }}.tar.gz
-  sha256: 0d839fb0f84ae72237c8037c89e6f6a96243025bcaa529a63d03b8cdd9fc489b
+  sha256: cb23d019f858c890450d0852018b787641de8db3fd8f09bf026b93a473b1f169
   patches:
     - normalize-basix-path.patch
 
 build:
-  number: 1
+  number: 0
   skip:
     - match(python, "<3.12")
     - skip_build
